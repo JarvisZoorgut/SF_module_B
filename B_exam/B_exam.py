@@ -113,7 +113,7 @@ def game_proceed_bot():
             x, y = move(f)
         else:
             player = '0'
-            print('Ход компьютера - О')
+            print('Ход компьютера - 0')
             x, y = move_bot(f)
 
         f[x][y] = player
