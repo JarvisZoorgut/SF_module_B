@@ -1,4 +1,4 @@
-#B_exam_commit
+#B_exam_17.08.2022
 
 def start():
     print('')
