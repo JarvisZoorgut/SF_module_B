@@ -1,14 +1,14 @@
 class Rectangle:
-    def __init__(self, width, heigth):
-        self.width = width
-        self.height = heigth
-
-    def get_width(self):
-        return self.width
-
-    def get_height(self):
-        return self.height
-
-    # Метод, рассчитывающий площадь
+    def __init__(self,a,b):
+        self.a = a
+       	self.b = b
     def get_area(self):
-        return self.width * self.height
+        return self.a * self.b
+    def __eq__(self, other):
+        return self.a == other.a and self.b == other.b
+
+class Square:
+    def __init__(self,a):
+	    self.a = a
+    def get_area_square(self):
+        return self.a ** 2
