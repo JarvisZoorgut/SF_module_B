@@ -1,14 +1,17 @@
 class Rectangle:
-    def __init__(self,a,b):
-        self.a = a
-       	self.b = b
-    def get_area(self):
-        return self.a * self.b
-    def __eq__(self, other):
-        return self.a == other.a and self.b == other.b
+    def __init__(self, x, y, width, heigth):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.heigth = heigth
 
-class Square:
-    def __init__(self,a):
-	    self.a = a
-    def get_area_square(self):
-        return self.a ** 2
+    def __str__(self):
+        return f'Rectangle : {self.x}, {self.y}, {self.width}, {self.heigth}.'
+
+    def get_area(self):
+        return self.heigth * self.width
+
+
+rect_1 = Rectangle(5, 10, 50, 100)
+print(rect_1)
+print(rect_1.get_area())

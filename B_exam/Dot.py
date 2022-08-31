@@ -1,30 +1,40 @@
-class Dot:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-    def __eq__(self, other):
-        return self.x == other.x and self.y == other.y
+class Customers:
+    def __init__(self, first_name,second_name,city, balance):
+        self.first_name = first_name
+        self.second_name = second_name
+        self.balance = balance
+        self.city=city
 
     def __str__(self):
-        return f'Dot: {self.x, self.y}'
+        return f'''"{self.first_name} {self.second_name}". г.{self.city}. Баланс: {self.balance} руб.'''
 
-class Circle:
-    def __init__(self, r):
-        self.r = r
-
-    def get_area(self):
-        return 3.14 * (self.r ** 2)
-
-c_1 = Circle(5)
-c_2 = Circle(10)
-
-print(Circle.get_area(c_1))
-print(Circle.get_area(c_2))
+    def get_guest(self):
+        return f'{self.first_name} {self.second_name}, г.{self.city}'
 
 
-p1 = Dot(1, 2)
-p2 = Dot(2, 2)
-print(p1 == p2)
-print(str(p1))
-print(p2)
+costomer_1 = Customers('Иван','Петров','Москва',50)
+costomer_2 = Customers('Владимир','Зайцев','Кострома',50)
+costomer_3 = Customers('Олеся','Янина','Новосибирск',50)
+
+print(costomer_3)
+
+guest_list=[costomer_1,costomer_2,costomer_3]
+
+
+for guest in guest_list:
+    print(guest.get_guest())
+
+print('----------------------------------------------')
+
+class Square:
+    def __init__(self, side):
+        self.side = side
+
+class SquareFactory:
+    @staticmethod
+    def create_square(side):
+        return Square(side)
+
+
+sq1 = SquareFactory.create_square(1)
+print(sq1.side)
