@@ -128,9 +128,9 @@ class Board:
                     print("Корабль ранен!")
                     return True
 
-                self.field[d.x][d.y] = "."
-                print("Мимо!")
-                return False
+        self.field[d.x][d.y] = "T"
+        print("Мимо!")
+        return False
 
     def begin(self):
         self.busy = []
@@ -157,7 +157,8 @@ class Player:
 
 class AI(Player):
     def ask(self):
-        d = Dot(randint(0, 5), randint(0, 5))
+        #в общем так и не разобрался, как сюда подключить логику изменения поля выстрела AI в зависимости от размера поля. Не хватило времени разобраться....
+        d = Dot(randint(0, 9), randint(0, 9))
         print(f"Ход компьютера: {d.x+1} {d.y+1}")
         return d
 
@@ -180,19 +181,46 @@ class User(Player):
 
             return Dot (x-1, y-1)
 
-class Game:
-    def __init__(self, size = 6):
-        self.size = size
+class Game():
+    def greet(self):
+        print("-------------------------")
+        print("|          ИГРА         |")
+        print("|       МОРСКОЙ БОЙ     |")
+        print("-------------------------")
+        print("|  Для выстрела ввести: |")
+        print("|   x - номер строки    |")
+        print("|   y - номер столбца   |")
+        print("_________________________")
+
+    def __init__(self, size = 4):
+        Game.greet(self)
+        self.size = int(input('Введите размер поля (от 4 до 10): '))
         pl = self.random_board()
         co = self.random_board()
-        co.hid = False
-
+        co.hid = False  #открыть, скрыть корабли противника
         self.ai = AI(co, pl)
         self.us = User(pl, co)
 
     def try_board(self):
-        lens = [3, 2, 2, 1, 1, 1, 1]
         board = Board(size = self.size)
+#здесь тоже проблемы с логикой, не понимаю, как развернуть обратно цикл при неверном выборе, пробовал while, не вышло...
+        if self.size == 4:
+            lens = [2, 2, 1, 1]
+        elif self.size == 5:
+            lens = [2, 2, 1, 1, 1]
+        elif self.size == 6:
+            lens = [3, 2, 2, 1, 1, 1, 1]
+        elif self.size == 7:
+            lens = [3, 2, 2, 2, 1, 1, 1, 1, 1]
+        elif self.size == 8:
+            lens = [4, 3, 2, 2, 2, 2, 2, 1, 1, 1, 1]
+        elif self.size == 9:
+            lens = [5, 4, 4, 3, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1]
+        elif self.size == 10:
+            lens = [6, 5, 4, 4, 3, 3, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1]
+        else:
+            print("Введите верный размер поля!")
+            Game.start(self)
         attempts = 0
         for l in lens:
             while True:
@@ -213,16 +241,6 @@ class Game:
         while board is None:
             board = self.try_board()
         return board
-
-    def greet(self):
-        print("-------------------------")
-        print("|          ИГРА         |")
-        print("|       МОРСКОЙ БОЙ     |")
-        print("-------------------------")
-        print("|  Для выстрела ввести: |")
-        print("|   x - номер строки    |")
-        print("|   y - номер столбца   |")
-        print("_________________________")
 
     def print_boards(self):
         print("-" * 25)
@@ -256,13 +274,13 @@ class Game:
             if self.us.board.defeat():
                 self.print_boards()
                 print("-"*25)
-                print("Копьютер выиграл!")
+                print("Компьютер выиграл!")
                 break
             num +=1
 
     def start(self):
-        self.greet()
         self.loop()
+
 
 g = Game()
 g.start()
